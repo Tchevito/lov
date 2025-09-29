@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>LOV U</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-image: url("credit-isnt-needed__seal-_2016-_tumblr.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 200px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    #imagenes {
+      margin-top: 30px;
+      min-height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: none;
+      transition: all 0.5s ease-in-out;
+      opacity: 1;
+      transform: scale(1.2);
+      max-width: 90vw;
+      max-height: 60vh;
+    }
+    
+    img.fade-out {
+      opacity: 0;
+    }
+    
+    button {
+      background: #B19CD9;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .contador {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .temporizador {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: #ff4444;
+      padding: 30px;
+      border-radius: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      z-index: 1000;
+      display: none;
+      box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+      border: 3px solid #ff4444;
+      max-width: 90%;
+    }
+    
+    .temporizador.mostrar {
+      display: block;
+      animation: parpadeo 0.5s infinite alternate;
+    }
+    
+    @keyframes parpadeo {
+      from { opacity: 1; }
+      to { opacity: 0.7; }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        margin-top: 50px;
+        padding: 0 15px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+      
+      button {
+        padding: 15px 30px;
+        font-size: 18px;
+        width: 80%;
+        max-width: 200px;
+        margin: 10px 0;
+      }
+      
+      #imagenes {
+        margin-top: 20px;
+        min-height: 150px;
+      }
+      
+      img {
+        width: 150px;
+        height: 150px;
+        max-width: 80vw;
+        max-height: 50vh;
+        transform: scale(1.1);
+      }
+      
+      .temporizador {
+        padding: 20px;
+        font-size: 20px;
+        max-width: 95%;
+        margin: 0 10px;
+      }
+      
+      .contador {
+        font-size: 16px;
+        margin-top: 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        margin-top: 30px;
+        padding: 0 10px;
+      }
+      
+      h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      
+      button {
+        padding: 12px 24px;
+        font-size: 16px;
+        width: 90%;
+      }
+      
+      img {
+        width: 120px;
+        height: 120px;
+        max-width: 85vw;
+        max-height: 45vh;
+      }
+      
+      .temporizador {
+        padding: 15px;
+        font-size: 18px;
+        max-width: 98%;
+      }
+      
+      .contador {
+        font-size: 14px;
+      }
+    }
+    
+    /* Mejoras para orientación landscape en móviles */
+    @media (max-height: 500px) and (orientation: landscape) {
+      body {
+        margin-top: 20px;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+      }
+      
+      #imagenes {
+        margin-top: 10px;
+        min-height: 100px;
+      }
+      
+      img {
+        width: 100px;
+        height: 100px;
+        max-height: 40vh;
+      }
+      
+      .temporizador {
+        padding: 10px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>TE AMO</h2>
+  <button onclick="cambiarImagen()">:P</button>
+  <div id="imagenes"></div>
+  <div class="contador"></div>
+  
+  <div id="temporizador" class="temporizador">
+    <div>CLICK O ESTO EXPLOTA</div>
+    <div id="cuentaRegresiva">10</div>
+    <div>segundos</div>
+  </div>
+  
+  <audio id="sonido1" preload="auto" src="ahhhh roblox scream sound effect(2).mp3"></audio>
+  <audio id="sonido2" preload="auto" src="Whoa Roblox Sound Effect  Soundboard Link.mp3"></audio>
+  <audio id="sonido3" preload="auto" src="hi roblox sound effect(3).mp3"></audio>
+  <audio id="audioTemporizador" preload="auto" src="audio_temporizador.mp3"></audio>
+  
+  <script>
+    const imagenes = ["m.png", "me.png", "mem.png"];
+    let indice = 0;
+    let imagenActual = null;
+    let temporizadorInactividad = null;
+    let temporizadorDestruccion = null;
+    let cuentaRegresiva = 10;
+    let temporizadorActivo = false;
+    let tiempoInactividad = 10000;
+    
+    function cambiarImagen() {
+      const contenedor = document.getElementById("imagenes");
+      detenerTodosLosAudios();
+      if (temporizadorActivo) {
+        tiempoInactividad = 20000;
+      }
+      cancelarTemporizadores();
+      contenedor.innerHTML = "";
+      mostrarNuevaImagen();
+      iniciarTemporizadorInactividad();
+    }
+    
+    function mostrarNuevaImagen() {
+      const contenedor = document.getElementById("imagenes");
+      const img = document.createElement("img");
+      img.src = imagenes[indice];
+      img.alt = `Imagen ${indice + 1}`;
+      contenedor.appendChild(img);
+      imagenActual = img;
+      reproducirSonido(indice);
+      setTimeout(() => {
+        if (imagenActual === img) {
+          img.classList.add("fade-out");
+        }
+      }, 2000);
+      indice = (indice + 1) % imagenes.length;
+    }
+    
+    function detenerTodosLosAudios() {
+      const sonidos = ['sonido1', 'sonido2', 'sonido3'];
+      sonidos.forEach(sonidoId => {
+        const audio = document.getElementById(sonidoId);
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    }
+    
+    function reproducirSonido(indiceImagen) {
+      const sonidos = ['sonido1', 'sonido2', 'sonido3'];
+      const audio = document.getElementById(sonidos[indiceImagen]);
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(e => {
+          console.log('No se pudo reproducir el sonido:', e);
+        });
+      }
+    }
+    
+    function iniciarTemporizadorInactividad() {
+      cancelarTemporizadores();
+      temporizadorInactividad = setTimeout(() => {
+        mostrarTemporizadorDestruccion();
+      }, tiempoInactividad);
+    }
+    
+    function mostrarTemporizadorDestruccion() {
+      const temporizador = document.getElementById('temporizador');
+      const cuentaRegresivaElement = document.getElementById('cuentaRegresiva');
+      temporizador.classList.add('mostrar');
+      temporizadorActivo = true;
+      cuentaRegresiva = 10;
+      const audioTemporizador = document.getElementById('audioTemporizador');
+      if (audioTemporizador) {
+        audioTemporizador.currentTime = 0;
+        audioTemporizador.play().catch(e => {});
+      }
+      temporizadorDestruccion = setInterval(() => {
+        cuentaRegresiva--;
+        cuentaRegresivaElement.textContent = cuentaRegresiva;
+        if (cuentaRegresiva <= 0) {
+          mostrarExplosionTemporizador();
+        }
+      }, 1000);
+    }
+    
+    function cancelarTemporizadores() {
+      if (temporizadorInactividad) {
+        clearTimeout(temporizadorInactividad);
+        temporizadorInactividad = null;
+      }
+      if (temporizadorDestruccion) {
+        clearInterval(temporizadorDestruccion);
+        temporizadorDestruccion = null;
+      }
+      if (temporizadorActivo) {
+        const temporizador = document.getElementById('temporizador');
+        temporizador.classList.remove('mostrar');
+        temporizadorActivo = false;
+        const audioTemporizador = document.getElementById('audioTemporizador');
+        if (audioTemporizador) {
+          audioTemporizador.pause();
+          audioTemporizador.currentTime = 0;
+        }
+      }
+    }
+    
+    function mostrarExplosionTemporizador() {
+      document.body.innerHTML = `
+        <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;">
+          <img src="explosion.gif" style="max-width:100%;max-height:100%;object-fit:contain;" alt="Explosión del Temporizador">
+        </div>
+      `;
+      setTimeout(() => {
+        window.close();
+      }, 3000);
+    }
+    
+    function destruirPagina() {
+      document.body.innerHTML = `
+        <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;">
+          <img src="explosion.gif" style="max-width:100%;max-height:100%;object-fit:contain;" alt="explosión">
+        </div>
+      `;
+      setTimeout(() => {
+        window.close();
+      }, 3000);
+    }
+    
+    iniciarTemporizadorInactividad();
+    
+    document.addEventListener('click', function(e) {
+      if (temporizadorActivo) {
+        cancelarTemporizadores();
+        tiempoInactividad = 20000;
+        iniciarTemporizadorInactividad();
+      }
+      if (e.target.tagName === 'IMG') {
+        e.target.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+          e.target.style.transform = 'scale(1)';
+        }, 200);
+      }
+    });
+  </script>
+</body>
+</html>
